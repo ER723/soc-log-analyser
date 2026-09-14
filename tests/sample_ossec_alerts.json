@@ -1,0 +1,3 @@
+{"rule":{"level":10,"description":"Multiple failed logins from same source"},"srcip":"203.0.113.5","full_log":"sshd failed login"}
+{"rule":{"level":13,"description":"New user added to system"},"srcip":null,"full_log":"useradd hacker"}
+{"rule":{"level":3,"description":"Login session opened"},"srcip":"192.168.1.50","full_log":"session opened for er723"}
