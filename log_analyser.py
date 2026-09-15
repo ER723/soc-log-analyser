@@ -58,8 +58,15 @@ SUDO_RE = re.compile(
     r"sudo:\s+(?P<user>\S+) : .*COMMAND=(?P<cmd>.+)"
 )
 SYSLOG_TS_RE = re.compile(r"^(?P<ts>\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})")
+ISO_TS_RE = re.compile(r"^(?P<ts>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})")
 
 def parse_syslog_ts(line, year=None):
+    m = ISO_TS_RE.match(line)
+    if m:
+        try:
+            return datetime.strptime(m.group("ts"), "%Y-%m-%dT%H:%M:%S")
+        except ValueError:
+            pass
     m = SYSLOG_TS_RE.match(line)
     if not m:
         return None

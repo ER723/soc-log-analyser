@@ -5,4 +5,4 @@ entries at the bottom.
 
 | Date | Tester | Test performed | Result | Notes |
 |---|---|---|---|---|
-| YYYY-MM-DD | er723 | e.g. Test 1 - SSH brute force via hydra | PASS/FAIL | |
+| 2026-09-15 | er723 | SSH brute force (7x failed login) from 10.0.2.15 via loop | PASS | MEDIUM flag + CRITICAL escalation both fired correctly |
