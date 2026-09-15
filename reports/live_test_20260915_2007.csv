@@ -1,0 +1,162 @@
+source,type,severity,ip,user_or_desc,detail
+auth,brute_force,MEDIUM,10.0.2.15,baduser,8 failed attempts
+auth,sudo,-,,er723,/usr/bin/systemctl enable --now rsyslog
+auth,sudo,-,,er723,/usr/bin/systemctl status ssh
+auth,sudo,-,,er723,/usr/bin/systemctl enable --now ssh
+auth,sudo,-,,er723,/usr/bin/systemctl status ssh
+auth,sudo,-,,er723,/usr/sbin/usermod -aG adm er723
+auth,accepted_login,-,10.0.2.15,er723,2026-09-15T18:45:10.022036+08:00 ER723-lab sshd-session[26738]: Accepted password for er723 from 10.0.2.15 port 49944 ssh2
+auth,sudo,-,,er723,/usr/sbin/useradd testuser99
+auth,sudo,-,,er723,/usr/sbin/userdel testuser99
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/bin/grep -A3 <global> /var/ossec/etc/ossec.conf
+auth,sudo,-,,er723,/usr/bin/ls -la /var/ossec/logs/alerts/
+auth,sudo,-,,er723,/usr/bin/nano /var/ossec/etc/ossec.conf
+auth,sudo,-,,er723,/var/ossec/bin/ossec-control restart
+auth,sudo,-,,er723,/usr/sbin/useradd testuser99
+auth,sudo,-,,er723,/usr/sbin/userdel testuser99
+auth,sudo,-,,er723,/usr/bin/ls -la /var/ossec/logs/alerts/
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/bin/nano /var/ossec/etc/ossec.conf
+auth,sudo,-,,er723,/usr/bin/grep -n '^<\\|^  <\\|^    <' /var/ossec/etc/ossec.conf
+auth,sudo,-,,er723,/usr/bin/grep -n <ossec_config\\|</ossec_config\\|<global\\|</global\\|<rootcheck\\|</rootcheck\\|<syscheck\\|</syscheck\\|<rules\\|</rules\\|<localfi
+auth,sudo,-,,er723,/usr/bin/nano /var/ossec/etc/ossec.conf
+auth,sudo,-,,er723,/var/ossec/bin/ossec-control restart
+auth,sudo,-,,er723,/usr/bin/grep -i syscheck /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/sbin/useradd testuser99
+auth,sudo,-,,er723,/usr/sbin/userdel testuser99
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/bin/tail -n 30 /var/ossec/logs/alerts/alerts.log
+auth,sudo,-,,er723,/usr/bin/grep -i 'realtime\\|integrity checksum\\|New file\\|syscheck' /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/sbin/useradd testuser99
+auth,sudo,-,,er723,/usr/sbin/userdel testuser99
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/bin/grep -i passwd\\|shadow\\|testuser99 /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/bin/grep -i testuser99\\|passwd\\|integrity /var/ossec/logs/alerts/alerts.log
+auth,sudo,-,,er723,/usr/bin/find /etc/passwd -newer /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/bin/grep -i 'inotify\\|watches\\|unable to add\\|max_queued' /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/bin/apt install -y inotify-tools
+auth,sudo,-,,er723,/usr/bin/inotifywait -e modify /etc/passwd
+auth,sudo,-,,er723,/usr/sbin/useradd testuser98
+auth,sudo,-,,er723,/usr/sbin/userdel testuser98
+auth,sudo,-,,er723,/usr/sbin/useradd testuser97
+auth,sudo,-,,er723,/var/ossec/bin/ossec-control restart
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/bin/grep -i 'ending syscheck scan' /var/ossec/logs/ossec.log
+auth,sudo,-,,er723,/usr/bin/tail -n 20 /var/ossec/logs/alerts/alerts.json
+auth,sudo,-,,er723,/usr/sbin/userdel testuser97
+auth,sudo,-,,er723,/usr/sbin/usermod -aG ossec er723
+auth,sudo,-,,er723,/usr/sbin/usermod -aG ossec er723
+auth,sudo,-,,er723,/usr/sbin/reboot
+auth,sudo,-,,er723,/usr/bin/python3 log_analyser.py --auth /var/log/auth.log --ossec /var/ossec/logs/alerts/alerts.json --csv reports/live_test_20260915_2007.csv
+ossec,alert,3,,,ossec: Ossec started.
+ossec,alert,3,,,ossec: Ossec started.
+ossec,alert,3,,,2026-09-15 19:31:27 install libinotifytools0:amd64 <none> 4.25.9.0-1+b1
+ossec,alert,3,,,2026-09-15 19:31:27 install inotify-tools:amd64 <none> 4.25.9.0-1+b1
+ossec,alert,7,,,2026-09-15 19:31:27 status installed libinotifytools0:amd64 4.25.9.0-1+b1
+ossec,alert,7,,,2026-09-15 19:31:27 status installed inotify-tools:amd64 4.25.9.0-1+b1
+ossec,alert,7,,,2026-09-15 19:31:27 status installed libc-bin:amd64 2.43-4
+ossec,alert,7,,,2026-09-15 19:31:30 status installed man-db:amd64 2.13.1-1
+ossec,alert,7,,,2026-09-15 19:31:30 status installed kali-menu:all 2026.1.5
+ossec,alert,3,,,ossec: Ossec started.
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/ld.so.cache'
+Size changed from '102866' to '102938'
+Old md5sum was: '301e6aa6d20831e8ab2f0aa100f00440'
+New md5sum is : 'ae91f4da6498b18fc8c67c907f90510b'
+Old sha1"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subuid'
+Size changed from '19' to '43'
+Old md5sum was: 'f52831ff27cc5b110c1320740e4e586a'
+New md5sum is : 'bf0f60d36950e1acd019d2b8c4d0123f'
+Old sha1sum was: 'a5a"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/shadow-'
+Size changed from '1604' to '1572'
+Old md5sum was: '69379bb72c1a6444d40a6935457c2303'
+New md5sum is : 'eef0cc3870d78630908a877b58d65d94'
+Old sha1sum was:"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/shadow'
+Size changed from '1572' to '1604'
+Old md5sum was: 'eef0cc3870d78630908a877b58d65d94'
+New md5sum is : 'f0490d15f9393a1ae83eebd957defa15'
+Old sha1sum was: "
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subgid-'
+Size changed from '43' to '19'
+Old md5sum was: 'ac994d87c9dbf6c73ca844772c34e18e'
+New md5sum is : 'f52831ff27cc5b110c1320740e4e586a'
+Old sha1sum was: '6a"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/passwd'
+Size changed from '3498' to '3547'
+Old md5sum was: 'a50323ffef4266a341c5358d4e6510cc'
+New md5sum is : '7cf20e56b9f559e0f0f9fef2d6888383'
+Old sha1sum was: "
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/passwd-'
+Size changed from '3547' to '3498'
+Old md5sum was: '26750358c8344242d676f9de6094edac'
+New md5sum is : 'a50323ffef4266a341c5358d4e6510cc'
+Old sha1sum was:"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/group-'
+Size changed from '1416' to '1397'
+Old md5sum was: '181f7c148618efe2c9cb11ca80518877'
+New md5sum is : '0a2b5dff14833fe4b721ce1221988d1f'
+Old sha1sum was: "
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/gshadow-'
+Size changed from '1204' to '1189'
+Old md5sum was: '999874c8b0dc56e2e53c9eff40d456e0'
+New md5sum is : '6db9f08f4782555b370f12e4c552d98e'
+Old sha1sum was"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/gshadow'
+Size changed from '1189' to '1204'
+Old md5sum was: '6db9f08f4782555b370f12e4c552d98e'
+New md5sum is : 'c1b2f101450d1eeeeb2a220635e3b8d3'
+Old sha1sum was:"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subgid'
+Size changed from '19' to '43'
+Old md5sum was: 'f52831ff27cc5b110c1320740e4e586a'
+New md5sum is : 'bf0f60d36950e1acd019d2b8c4d0123f'
+Old sha1sum was: 'a5a"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/group'
+Size changed from '1397' to '1416'
+Old md5sum was: '0a2b5dff14833fe4b721ce1221988d1f'
+New md5sum is : 'e5a8e5342a850886370dc13b509c8110'
+Old sha1sum was: '"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subuid-'
+Size changed from '43' to '19'
+Old md5sum was: 'ac994d87c9dbf6c73ca844772c34e18e'
+New md5sum is : 'f52831ff27cc5b110c1320740e4e586a'
+Old sha1sum was: '6a"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/shadow'
+Size changed from '1604' to '1572'
+Old md5sum was: 'f0490d15f9393a1ae83eebd957defa15'
+New md5sum is : 'eef0cc3870d78630908a877b58d65d94'
+Old sha1sum was: "
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subgid-'
+Size changed from '19' to '43'
+Old md5sum was: 'f52831ff27cc5b110c1320740e4e586a'
+New md5sum is : 'bf0f60d36950e1acd019d2b8c4d0123f'
+Old sha1sum was: 'a5"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/passwd'
+Size changed from '3547' to '3498'
+Old md5sum was: '7cf20e56b9f559e0f0f9fef2d6888383'
+New md5sum is : 'a50323ffef4266a341c5358d4e6510cc'
+Old sha1sum was: "
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/passwd-'
+Size changed from '3498' to '3547'
+Old md5sum was: 'a50323ffef4266a341c5358d4e6510cc'
+New md5sum is : '7cf20e56b9f559e0f0f9fef2d6888383'
+Old sha1sum was:"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/gshadow'
+Size changed from '1204' to '1194'
+Old md5sum was: 'c1b2f101450d1eeeeb2a220635e3b8d3'
+New md5sum is : '83cc378fac595e0511c75fa8addd234e'
+Old sha1sum was:"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/subgid'
+Size changed from '43' to '19'
+Old md5sum was: 'bf0f60d36950e1acd019d2b8c4d0123f'
+New md5sum is : 'f52831ff27cc5b110c1320740e4e586a'
+Old sha1sum was: 'efe"
+ossec,alert,7,,,"Integrity checksum changed for: '/etc/group'
+Size changed from '1416' to '1402'
+Old md5sum was: 'e5a8e5342a850886370dc13b509c8110'
+New md5sum is : 'f25ecd13b0d0ed44b594c4830268c74d'
+Old sha1sum was: '"
+ossec,alert,3,,,ossec: Ossec started.
