@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # Keep pinned GitHub Actions commit SHAs current.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Keep the (currently empty) Python dependency set and dev extras current.
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
