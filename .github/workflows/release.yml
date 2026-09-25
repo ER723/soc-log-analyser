@@ -7,16 +7,19 @@ on:
     tags:
       - 'v*.*.*'
 
-permissions:
-  contents: read
+permissions: read-all
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # create the GitHub Release and upload assets
-      id-token: write       # OIDC token for build provenance attestation
-      attestations: write   # publish the attestation
+      contents: read
+      id-token: write       # OIDC token for the GitHub-native attestation
+      attestations: write   # publish that attestation
+    outputs:
+      # Base64-encoded sha256sum output, consumed by the SLSA provenance
+      # job below (its required input format).
+      digests: ${{ steps.hash.outputs.digests }}
 
     steps:
       - name: Checkout
@@ -37,26 +40,61 @@ jobs:
           pip install --require-hashes -r requirements-dev.txt
           uv build
 
-      - name: Generate build provenance attestation
+      - name: Generate build provenance attestation (GitHub-native)
         id: attest
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
           subject-path: "dist/*"
 
-      - name: Attach attestation bundle as a release asset
+      - name: Also stage that attestation bundle as a downloadable asset
         # actions/attest-build-provenance publishes to GitHub's Attestations
-        # API, which OpenSSF Scorecard's Signed-Releases check does not
-        # currently look at (it only scans release ASSET filenames for
-        # patterns like *.sig, *.sigstore.json, *.intoto.jsonl — see
-        # https://github.com/ossf/scorecard/issues/4667). This copies the
-        # same real attestation bundle produced above into dist/ with a
-        # recognized filename so it's also attached as a downloadable
-        # release asset, verifiable the normal way:
+        # API. Scorecard's Signed-Releases check doesn't look there — only
+        # at release asset filenames — so this makes the same real
+        # attestation additionally available as a normal download:
         #   gh attestation verify dist/<artifact> --owner ER723
         run: cp "${{ steps.attest.outputs.bundle-path }}" "dist/soc-log-analyser-${{ github.ref_name }}.sigstore.json"
 
-      - name: Create GitHub Release with signed artifacts
+      - name: Generate subject hashes for SLSA provenance
+        id: hash
+        working-directory: dist
+        run: echo "digests=$(sha256sum * | base64 -w0)" >> "$GITHUB_OUTPUT"
+
+      - name: Upload build output for later jobs
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist
+          path: dist/
+
+  release:
+    needs: [build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # create the GitHub Release and upload assets
+    steps:
+      - name: Download build output
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          name: dist
+          path: dist/
+
+      - name: Create GitHub Release with build artifacts
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           files: dist/*
           generate_release_notes: true
+
+  provenance:
+    needs: [build, release]
+    permissions:
+      actions: read    # detect the workflow that produced the artifacts
+      id-token: write  # sign the provenance
+      contents: write  # upload the provenance file to the release
+    # Official SLSA3 generic provenance generator. Pinned to a release tag
+    # (not a commit SHA) per the project's own guidance — its verifier
+    # (slsa-verifier) validates the builder identity against known tagged
+    # releases, so tag-pinning is the correct/expected form here, not the
+    # usual SHA-pinning used for regular action steps.
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
+    with:
+      base64-subjects: "${{ needs.build.outputs.digests }}"
+      upload-assets: true  # attaches provenance.intoto.jsonl to the release
