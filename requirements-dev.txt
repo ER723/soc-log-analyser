@@ -1,4 +1,9 @@
-# Dev-only requirements for CI linting, hash-pinned for supply-chain integrity.
-# Matches the ruff version declared in pyproject.toml's [dev] extra.
-# Hash is for the manylinux x86_64 wheel (matches GitHub Actions ubuntu-latest).
+# Dev-only requirements for CI/release, hash-pinned for supply-chain integrity.
+# Hashes are for the manylinux x86_64 wheel (matches GitHub Actions ubuntu-latest).
+
+# CI lint (matches ruff version in pyproject.toml's [dev] extra)
 ruff==0.16.8 --hash=sha256:15e7d226246961db9235098333caa13063906d3851136b84c2900b82f5daa1df
+
+# Release builds (uv build replaces `pip install build && python -m build`,
+# avoiding a hash chase across build's own transitive dependency tree)
+uv==0.12.19 --hash=sha256:a63d18a0aa38ee9f21a5406afbbaeb41303bcd954be9d6b7c1b95ac275e53958
