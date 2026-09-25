@@ -128,7 +128,13 @@ def parse_ossec_alerts(path):
                     obj = json.loads(line)
                 except json.JSONDecodeError:
                     continue
+                if not isinstance(obj, dict):
+                    # Valid JSON but not an alert object (e.g. a bare
+                    # number, string, or list) — not a real OSSEC alert.
+                    continue
                 rule = obj.get("rule", {})
+                if not isinstance(rule, dict):
+                    rule = {}
                 events.append({
                     "type": "ossec_alert",
                     "level": rule.get("level", 0),
