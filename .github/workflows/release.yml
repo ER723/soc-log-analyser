@@ -38,9 +38,22 @@ jobs:
           uv build
 
       - name: Generate build provenance attestation
+        id: attest
         uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
           subject-path: "dist/*"
+
+      - name: Attach attestation bundle as a release asset
+        # actions/attest-build-provenance publishes to GitHub's Attestations
+        # API, which OpenSSF Scorecard's Signed-Releases check does not
+        # currently look at (it only scans release ASSET filenames for
+        # patterns like *.sig, *.sigstore.json, *.intoto.jsonl — see
+        # https://github.com/ossf/scorecard/issues/4667). This copies the
+        # same real attestation bundle produced above into dist/ with a
+        # recognized filename so it's also attached as a downloadable
+        # release asset, verifiable the normal way:
+        #   gh attestation verify dist/<artifact> --owner ER723
+        run: cp "${{ steps.attest.outputs.bundle-path }}" "dist/soc-log-analyser-${{ github.ref_name }}.sigstore.json"
 
       - name: Create GitHub Release with signed artifacts
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
