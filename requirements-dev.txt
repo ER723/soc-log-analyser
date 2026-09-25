@@ -1,0 +1,4 @@
+# Dev-only requirements for CI linting, hash-pinned for supply-chain integrity.
+# Matches the ruff version declared in pyproject.toml's [dev] extra.
+# Hash is for the manylinux x86_64 wheel (matches GitHub Actions ubuntu-latest).
+ruff==0.16.8 --hash=sha256:15e7d226246961db9235098333caa13063906d3851136b84c2900b82f5daa1df
