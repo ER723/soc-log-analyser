@@ -3,7 +3,7 @@ name = "soc-log-analyser"
 version = "1.0.0"
 description = "Free, lightweight Tier 1 SOC log analyser — parses auth.log + OSSEC alerts, flags brute-force and integrity changes."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.10"
 dependencies = []
 
@@ -13,3 +13,9 @@ dev = ["ruff>=0.6"]
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+# Single-file module, not a package directory — without this, setuptools'
+# automatic discovery trips over the repo's other top-level folders
+# (fuzz/, reports/, docs/, tests/) and refuses to build.
+py-modules = ["log_analyser"]
