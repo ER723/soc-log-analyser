@@ -1,26 +1,51 @@
 # SOC Log Analyser (Tier 1) — Free & Lightweight
 
+[![CI](https://github.com/ER723/soc-log-analyser/actions/workflows/ci.yml/badge.svg)](https://github.com/ER723/soc-log-analyser/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ER723/soc-log-analyser/badge)](https://scorecard.dev/viewer/?uri=github.com/ER723/soc-log-analyser)
+
 A single Python file, **zero third-party dependencies**, no database, no
 ELK/Splunk. Built to run comfortably on an 8GB RAM Kali VM alongside OSSEC.
+
+![Sample output](docs/screenshot.png)
+
+*Real output from a live test: a simulated SSH brute force correctly flagged
+MEDIUM, then escalated to CRITICAL when the same IP achieved a login — see
+[`docs/LIVE_TESTING.md`](docs/LIVE_TESTING.md) for how to reproduce this.*
+
+## Documentation
+
+| Doc | What's in it |
+|---|---|
+| [`docs/LIVE_TESTING.md`](docs/LIVE_TESTING.md) | Step-by-step procedure to validate detection against a real target (not just the fixtures) |
+| [`docs/ESCALATION.md`](docs/ESCALATION.md) | What a Tier 1 analyst does with each severity of flag — validate, contain, escalate |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Setup, code style, test, and PR process |
+| [`SECURITY.md`](SECURITY.md) | How to report a vulnerability, and what's in scope |
+| [`tests/TEST_LOG.md`](tests/TEST_LOG.md) | Running record of live test results |
+| [`CHANGELOG.md`](CHANGELOG.md) | Version history |
 
 ## Repo layout
 
 ```
-log_analyser.py          the tool (stdlib-only)
-tests/sample_auth.log         fixture for offline testing
+log_analyser.py                 the tool (stdlib-only)
+tests/test_log_analyser.py      unit tests (unittest, stdlib-only)
+tests/sample_auth.log           fixture for offline testing
 tests/sample_ossec_alerts.json  fixture for offline testing
-tests/TEST_LOG.md             running log of live test results
-docs/LIVE_TESTING.md          step-by-step live test procedure
-docs/ESCALATION.md            Tier 1 -> Tier 2 escalation process
-docs/incidents/                per-incident notes (created as needed)
-reports/                       generated CSV output (gitignored)
+tests/TEST_LOG.md               running log of live test results
+docs/LIVE_TESTING.md            step-by-step live test procedure
+docs/ESCALATION.md              Tier 1 -> Tier 2 escalation process
+docs/screenshot.png             sample output shown above
+docs/incidents/                 per-incident notes (created as needed)
+reports/                        generated CSV output (gitignored)
+.github/workflows/ci.yml        CI: runs tests + lint on every push
+.github/ISSUE_TEMPLATE/         bug report / feature request templates
+pyproject.toml                  project manifest (zero runtime deps)
+uv.lock                         locked resolution (reproducible dev env)
+ruff.toml                       lint config
+CONTRIBUTING.md
 CHANGELOG.md
 LICENSE (MIT)
 ```
-
-See [`docs/LIVE_TESTING.md`](docs/LIVE_TESTING.md) before running against
-a real target, and [`docs/ESCALATION.md`](docs/ESCALATION.md) for what to
-do with each severity of flag it produces.
 
 ## What it does
 
@@ -37,7 +62,24 @@ do with each severity of flag it produces.
 
 ## Requirements
 
-Python 3.6+ (already on Kali). That's it — no `pip install` needed.
+Python 3.6+ (already on Kali). That's it — no `pip install` needed to run
+the tool itself.
+
+## Running tests
+
+Stdlib `unittest`, no test framework dependency:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+Linting (optional, requires the `dev` extra):
+```bash
+pip install -e ".[dev]"
+ruff check .
+```
+
+CI runs both of these on every push (see the badge above).
 
 ## One-shot usage
 
