@@ -3,3 +3,8 @@ __pycache__/
 reports/*.csv
 !reports/.gitkeep
 *.log
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+!tests/*.log

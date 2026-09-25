@@ -1,0 +1,11 @@
+Sep 15 10:00:01 ER723-lab sshd[1001]: Invalid user admin from 203.0.113.5
+Sep 15 10:00:03 ER723-lab sshd[1001]: Failed password for invalid user admin from 203.0.113.5 port 51000 ssh2
+Sep 15 10:00:05 ER723-lab sshd[1002]: Failed password for invalid user root from 203.0.113.5 port 51001 ssh2
+Sep 15 10:00:07 ER723-lab sshd[1003]: Failed password for invalid user test from 203.0.113.5 port 51002 ssh2
+Sep 15 10:00:09 ER723-lab sshd[1004]: Failed password for invalid user oracle from 203.0.113.5 port 51003 ssh2
+Sep 15 10:00:11 ER723-lab sshd[1005]: Failed password for invalid user pi from 203.0.113.5 port 51004 ssh2
+Sep 15 10:00:13 ER723-lab sshd[1006]: Failed password for invalid user postgres from 203.0.113.5 port 51005 ssh2
+Sep 15 10:00:20 ER723-lab sshd[1010]: Accepted password for er723 from 203.0.113.5 port 51010 ssh2
+Sep 15 10:05:00 ER723-lab sshd[1020]: Accepted password for er723 from 192.168.1.50 port 52010 ssh2
+Sep 15 10:06:00 ER723-lab sudo: er723 : TTY=pts/0 ; PWD=/home/er723 ; USER=root ; COMMAND=/usr/bin/apt update
+Sep 15 10:07:00 ER723-lab sudo: er723 : TTY=pts/0 ; PWD=/home/er723 ; USER=root ; COMMAND=/usr/sbin/useradd hacker

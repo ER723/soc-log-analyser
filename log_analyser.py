@@ -25,8 +25,9 @@ import json
 import re
 import sys
 import time
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta
+
 
 # ---------- Terminal colors (no deps) ----------
 class C:
@@ -61,12 +62,14 @@ SYSLOG_TS_RE = re.compile(r"^(?P<ts>\w{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})")
 ISO_TS_RE = re.compile(r"^(?P<ts>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})")
 
 def parse_syslog_ts(line, year=None):
+    # Modern rsyslog (default on current Kali) writes ISO8601 timestamps.
     m = ISO_TS_RE.match(line)
     if m:
         try:
             return datetime.strptime(m.group("ts"), "%Y-%m-%dT%H:%M:%S")
         except ValueError:
             pass
+    # Fall back to classic BSD syslog format ("Sep 15 18:41:22").
     m = SYSLOG_TS_RE.match(line)
     if not m:
         return None
