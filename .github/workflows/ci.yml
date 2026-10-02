@@ -24,11 +24,17 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Run tests
-        run: python3 -m unittest discover -s tests -v
-
-      - name: Install ruff (hash-pinned)
+      - name: Install uv (hash-pinned)
         run: pip install --require-hashes -r requirements-dev.txt
 
+      - name: Install dev dependencies (locked, hash-verified)
+        run: uv sync --extra dev --locked
+
+      - name: Run tests with coverage
+        run: uv run pytest tests/ --cov=log_analyser --cov-report=term-missing --cov-report=xml -v
+
+      - name: Type check
+        run: uv run mypy log_analyser.py
+
       - name: Lint
-        run: ruff check .
+        run: uv run ruff check .

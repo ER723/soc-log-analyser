@@ -5,10 +5,18 @@ description = "Free, lightweight Tier 1 SOC log analyser — parses auth.log + O
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
+authors = [
+    { name = "Anggasukmana", email = "asukmana723@gmail.com" },
+]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/ER723/soc-log-analyser"
+Repository = "https://github.com/ER723/soc-log-analyser"
+Issues = "https://github.com/ER723/soc-log-analyser/issues"
+
 [project.optional-dependencies]
-dev = ["ruff>=0.6"]
+dev = ["ruff>=0.6", "pytest>=8.0", "pytest-cov>=5.0", "mypy>=1.8"]
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -19,3 +27,11 @@ build-backend = "setuptools.build_meta"
 # automatic discovery trips over the repo's other top-level folders
 # (fuzz/, reports/, docs/, tests/) and refuses to build.
 py-modules = ["log_analyser"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+warn_unused_ignores = true
