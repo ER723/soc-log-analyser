@@ -14,3 +14,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      # atheris 3.1.0+ dropped cp311 wheels, and the ClusterFuzzLite build
+      # container (.clusterfuzzlite/Dockerfile) runs Python 3.11, so a
+      # minor/major bump here breaks the fuzzing build with no matching
+      # distribution. Patch releases within 3.0.x are still allowed.
+      # Revisit this once the build container moves to a newer Python.
+      - dependency-name: "atheris"
+        update-types:
+          ["version-update:semver-minor", "version-update:semver-major"]
