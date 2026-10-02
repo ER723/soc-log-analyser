@@ -3,6 +3,7 @@
 [![CI](https://github.com/ER723/soc-log-analyser/actions/workflows/ci.yml/badge.svg)](https://github.com/ER723/soc-log-analyser/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ER723/soc-log-analyser/badge)](https://scorecard.dev/viewer/?uri=github.com/ER723/soc-log-analyser)
+[![RepoGrade](https://www.repo-grade.com/api/badge/er723/soc-log-analyser)](https://www.repo-grade.com/report/er723/soc-log-analyser)
 
 A single Python file, **zero third-party dependencies**, no database, no
 ELK/Splunk. Built to run comfortably on an 8GB RAM Kali VM alongside OSSEC.
@@ -20,6 +21,7 @@ MEDIUM, then escalated to CRITICAL when the same IP achieved a login — see
 | [`docs/LIVE_TESTING.md`](docs/LIVE_TESTING.md) | Step-by-step procedure to validate detection against a real target (not just the fixtures) |
 | [`docs/ESCALATION.md`](docs/ESCALATION.md) | What a Tier 1 analyst does with each severity of flag — validate, contain, escalate |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Setup, code style, test, and PR process |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Community expectations for contributors |
 | [`SECURITY.md`](SECURITY.md) | How to report a vulnerability, and what's in scope |
 | [`tests/TEST_LOG.md`](tests/TEST_LOG.md) | Running record of live test results |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history |

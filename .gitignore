@@ -4,7 +4,12 @@ reports/*.csv
 !reports/.gitkeep
 *.log
 .ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage.xml
 *.egg-info/
 build/
 dist/
+.venv/
 !tests/*.log
